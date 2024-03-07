@@ -47,8 +47,6 @@ const FirmaconrucList = ({ supabase }) => {
     doc.text(`Direccion: ${selectedLegal.direccion_ruc}`, 10, 110);
     doc.text(`Codigo Dactilar: ${selectedLegal.codigodactilar_ruc}`, 10, 120);
 
-
-    // Aquí puedes agregar más campos según sea necesario
     doc.save("documental.pdf");
   };
 

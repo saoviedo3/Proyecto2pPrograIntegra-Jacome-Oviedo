@@ -43,7 +43,6 @@ const FirmadocumentalList = ({ supabase }) => {
     doc.text(`Ciudad: ${selectedDocumental.ciudad_documental}`, 10, 100);
     doc.text(`Direccion: ${selectedDocumental.direccion_documental}`, 10, 110);
 
-    // Aquí puedes agregar más campos según sea necesario
     doc.save("documental.pdf");
   };
   

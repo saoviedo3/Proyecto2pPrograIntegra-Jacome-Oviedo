@@ -255,7 +255,7 @@ const FirmaLegalForm = ({ supabase }) => {
       <input
         type="file"
         class="form-control"
-        placeholder="Enter pdf_ruc"
+        placeholder="Enter pdf ruc"
         onChange={(e) => setPdf_Legal(e.target.files[0].name)}
       />
       Pdf constitucion compania:

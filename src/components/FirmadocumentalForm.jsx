@@ -91,7 +91,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter codigodactilar_documental"
+        placeholder="Enter codigo dactilar"
         value={codigodactilar_documental}
         onChange={(e) => setCodigoDactilar_Documental(e.target.value)}
       />
@@ -99,7 +99,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter nombres_documental"
+        placeholder="Enter nombres"
         value={nombres_documental}
         onChange={(e) => setNombres_Documental(e.target.value)}
       />
@@ -107,7 +107,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter apellidopaterno_documental"
+        placeholder="Enter apellido paterno"
         value={apellidopaterno_documental}
         onChange={(e) => setApellidoPaterno_Documental(e.target.value)}
       />
@@ -115,7 +115,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter apellidomaterno_documental"
+        placeholder="Enter apellido materno"
         value={apellidomaterno_documental}
         onChange={(e) => setApellidoMaterno_Documental(e.target.value)}
       />
@@ -123,7 +123,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="date"
         className="form-control"
-        placeholder="Enter fechanacimiento_documental"
+        placeholder="Enter fecha nacimiento"
         value={fechanacimiento_documental}
         onChange={(e) => setFechaNacimiento_Documental(e.target.value)}
       />
@@ -131,7 +131,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter genero_documental"
+        placeholder="Enter genero"
         value={genero_documental}
         onChange={(e) => setGenero_Documental(e.target.value)}
       />
@@ -139,7 +139,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="email"
         className="form-control"
-        placeholder="Enter correopersonal_documental"
+        placeholder="Enter correo personal"
         value={correopersonal_documental}
         onChange={(e) => setCorreoPersonal_Documental(e.target.value)}
       />
@@ -147,7 +147,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="number"
         className="form-control"
-        placeholder="Enter celular_documental"
+        placeholder="Enter celular"
         value={celular_documental}
         onChange={(e) => setCelular_Documental(e.target.value)}
       />
@@ -155,7 +155,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter provincia_documental"
+        placeholder="Enter provincia"
         value={provincia_documental}
         onChange={(e) => setProvincia_Documental(e.target.value)}
       />
@@ -163,7 +163,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter ciudad_documental"
+        placeholder="Enter ciudad"
         value={ciudad_documental}
         onChange={(e) => setCiudad_Documental(e.target.value)}
       />
@@ -171,7 +171,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Enter direccion_documental"
+        placeholder="Enter direccion"
         value={direccion_documental}
         onChange={(e) => setDireccion_Documental(e.target.value)}
       />
@@ -179,7 +179,7 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="number"
         className="form-control"
-        placeholder="Enter tiempovigencia_documental"
+        placeholder="Enter tiempo vigencia"
         value={tiempovigencia_documental}
         onChange={(e) => setTiempoVigencia_Documental(e.target.value)}
       /> 
@@ -187,28 +187,28 @@ const FirmadocumentalForm = ({ supabase }) => {
       <input
         type="file"
         className="form-control"
-        placeholder="Enter fotocedulafrontal_documental"
+        placeholder="Enter foto cedula frontal"
         onChange={(e) => setFotoCedulaFrontal_Documental(e.target.files[0].name)}
       />
       Foto Cedula Posterior:
       <input
         type="file"
         className="form-control"
-        placeholder="Enter fotocedulaposterior_documental"
+        placeholder="Enter foto cedula posterior"
         onChange={(e) => setFotoCedulaPosterior_Documental(e.target.files[0].name)}
       />
       Foto Selfie:
       <input
         type="file"
         className="form-control"
-        placeholder="Enter fotoselfie_documental"
+        placeholder="Enter foto selfie"
         onChange={(e) => setFotoSelfie_Documental(e.target.files[0].name)}
       />
       Foto Transferencia:
       <input
         type="file"
         className="form-control"
-        placeholder="Enter fototransferencia_documental"
+        placeholder="Enter foto transferencia"
         onChange={(e) => setFotoTransferencia_Documental(e.target.files[0].name)}
       />
       </div>
