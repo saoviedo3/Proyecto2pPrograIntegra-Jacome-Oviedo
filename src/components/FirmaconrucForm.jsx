@@ -78,13 +78,17 @@ const FirmaconrucForm = ({ supabase }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+
+    <div class="card" >
+  <div class="card-body"></div>
+    <form onSubmit={handleSubmit} className="container mt-5">
       <h2>Firma con RUC</h2>
       <h3>Ingrese los datos del cliente</h3>
       Cedula:
       <br />
       <input
         type="number"
+        class="form-control"
         placeholder=" Cedula"
         value={cedula_ruc}
         onChange={(e) => setCedula_Ruc(e.target.value)}
@@ -94,6 +98,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="number"
+        class="form-control"
         placeholder=" RUC"
         value={ruc}
         onChange={(e) => setRuc(e.target.value)}
@@ -103,6 +108,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Codigo Dactilar"
         value={codigodactilar_ruc}
         onChange={(e) => setCodigoDactilar_Ruc(e.target.value)}
@@ -112,6 +118,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Nombres"
         value={nombres_ruc}
         onChange={(e) => setNombres_Ruc(e.target.value)}
@@ -121,6 +128,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Apellido Paterno"
         value={apellidopaterno_ruc}
         onChange={(e) => setApellidoPaterno_Ruc(e.target.value)}
@@ -130,6 +138,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Apellido Materno"
         value={apellidomaterno_ruc}
         onChange={(e) => setApellidoMaterno_Ruc(e.target.value)}
@@ -139,6 +148,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="date"
+        class="form-control"
         placeholder=" Fecha Nacimiento"
         value={fechanacimiento_ruc}
         onChange={(e) => setFechaNacimiento_Ruc(e.target.value)}
@@ -148,6 +158,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Genero"
         value={genero_ruc}
         onChange={(e) => setGenero_Ruc(e.target.value)}
@@ -157,6 +168,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="email"
+        class="form-control"
         placeholder=" Correo"
         value={correopersonal_ruc}
         onChange={(e) => setCorreoPersonal_Ruc(e.target.value)}
@@ -166,6 +178,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="number"
+        class="form-control"
         placeholder=" Celular"
         value={celular_ruc}
         onChange={(e) => setCelular_Ruc(e.target.value)}
@@ -175,6 +188,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Provincia"
         value={provincia_ruc}
         onChange={(e) => setProvincia_Ruc(e.target.value)}
@@ -184,6 +198,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Ciudad"
         value={ciudad_ruc}
         onChange={(e) => setCiudad_Ruc(e.target.value)}
@@ -193,6 +208,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="text"
+        class="form-control"
         placeholder=" Direccion"
         value={direccion_ruc}
         onChange={(e) => setDireccion_Ruc(e.target.value)}
@@ -202,6 +218,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="number"
+        class="form-control"
         placeholder=" Tiempo Vigencia"
         value={tiempovigencia_ruc}
         onChange={(e) => setTiempoVigencia_Ruc(e.target.value)}
@@ -210,7 +227,8 @@ const FirmaconrucForm = ({ supabase }) => {
       Foto Cedula Frontal:
       <br />
       <input
-        type="file"
+        type="file" 
+        class="form-control"
         onChange={(e) => setFotoCedulaFrontal_Ruc(e.target.files[0].name)}
       />
       <br />
@@ -218,6 +236,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="file"
+        class="form-control"
         onChange={(e) => setFotoCedulaPosterior_Ruc(e.target.files[0].name)}
       />
       <br />
@@ -225,6 +244,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="file"
+        class="form-control"
         onChange={(e) => setFotoSelfie_Ruc(e.target.files[0].name)}
       />
       <br />
@@ -232,6 +252,7 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="file"
+        class="form-control"
         onChange={(e) => setFotoTransferencia_Ruc(e.target.files[0].name)}
       />
       <br />
@@ -239,11 +260,13 @@ const FirmaconrucForm = ({ supabase }) => {
       <br />
       <input
         type="file"
+        class="form-control"
         onChange={(e) => setPdf_Ruc(e.target.files[0].name)}
       />
       <br />
-      <button type="submit">Agregar Firma con RUC</button>
+      <button type="submit" class="btn btn-primary">Agregar Firma con RUC</button>
     </form>
+    </div>
   );
 };
 

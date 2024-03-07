@@ -98,9 +98,11 @@ const FirmaLegalForm = ({ supabase }) => {
   return (
     <div class="card" >
   <div class="card-body">
-    <form onSubmit={handleSubmit} class="form-group">
+    <form onSubmit={handleSubmit} className="container mt-5">
       <h2 class="card-title">Firma Legal</h2>
       <h3 class="card-subtitle mb-2 text-muted">Ingrese los datos del cliente</h3>        
+      <div className="form-group">
+
       <input
         type="number"
         class="form-control"
@@ -108,6 +110,7 @@ const FirmaLegalForm = ({ supabase }) => {
         value={cedula_legal}
         onChange={(e) => setCedula_Legal(e.target.value)}
       />
+
       <input
         type="number"
         class="form-control"
@@ -277,6 +280,7 @@ const FirmaLegalForm = ({ supabase }) => {
         onChange={(e) => setPdfAceptamientoNombramiento_Legal(e.target.files[0].name)}
       />
       <br />
+      </div>
       
       <button type="submit" class="btn btn-primary">Agregar Firma Legal</button>
     </form>

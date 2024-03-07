@@ -1,9 +1,17 @@
 // FirmaLegalList.jsx
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal } from 'react-bootstrap';
+
+import { jsPDF } from "jspdf";
 
 const FirmaLegalList = ({ supabase }) => {
   const [legalRecords, setLegalRecords] = useState([]);
+  const [selectedLegal, setSelectedLegal] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+
 
   useEffect(() => {
     async function fetchLegalRecords() {
@@ -26,6 +34,23 @@ const FirmaLegalList = ({ supabase }) => {
     fetchLegalRecords();
   }, [supabase]);
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text(`Nombre: ${selectedDocumental.nombres_documental}`, 10, 10);
+    doc.text(`Apellido: ${selectedDocumental.apellidopaterno_documental} ${selectedDocumental.apellidomaterno_documental}`, 10, 20);
+    doc.text(`Cédula: ${selectedDocumental.cedula_documental}`, 10, 30);
+    doc.text(`Tiempo Vigencia: ${selectedDocumental.tiempovigencia_documental}`, 10, 40);
+    doc.text(`Fecha Nacimiento: ${selectedDocumental.fechanacimiento_documental}`, 10, 50);
+    doc.text(`Genero: ${selectedDocumental.genero_documental}`, 10, 60);
+    doc.text(`Correo: ${selectedDocumental.correopersonal_documental}`, 10, 70);
+    doc.text(`Celular: ${selectedDocumental.celular_documental}`, 10, 80);
+    doc.text(`Provincia: ${selectedDocumental.provincia_documental}`, 10, 90);
+    doc.text(`Ciudad: ${selectedDocumental.ciudad_documental}`, 10, 100);
+    doc.text(`Direccion: ${selectedDocumental.direccion_documental}`, 10, 110);
+
+    // Aquí puedes agregar más campos según sea necesario
+    doc.save("documental.pdf");
+  };
   // Asegúrate de actualizar la función de eliminación para que funcione con la tabla firmalegal
   async function deleteLegalRecord(idlegal) {
     try {
@@ -35,41 +60,28 @@ const FirmaLegalList = ({ supabase }) => {
       console.error('Error deleting legal record:', error.message);
     }
   }
+  const handleDetailsClick = (record) => {
+    setSelectedLegal(record);
+    setShowModal(true);
+  };
+  
 
   return (
-    <div class="container">
-    <h2>Firma Legal List</h2>
-    <table class="table table-striped">
+    <div class="container mt-5">
+    <h2 className="mb-4">Firmas Legales</h2>
+    <table class="table table-striped thead-dark">
       <thead>
         <tr>
           <th>Cédula </th>
           <th>RUC </th>
-          <th>Código Dactilar </th>
           <th>Nombres </th>
           <th>Apellido Paterno </th>
-          <th>Apellido Materno </th>
-          <th>Fecha de Nacimiento </th>
-          <th>Género</th>
-          <th>Correo Personal </th>
-          <th>Celular </th>
-          <th>RUC Empresa </th>
-          <th>Razon Social </th>
-          <th>Cargo Representante </th>
-          <th>Provincia </th>
-          <th>Ciudad </th>
-          <th>Dirección </th>
+
+
           <th>Tiempo Vigencia </th>
-          <th>Foto Cédula Frontal </th>
-          <th>Foto Cédula Posterior </th>
-          <th>Foto Selfie </th>
-          <th>Foto Transferencia </th>
-          <th>PDF RUC</th>
-          <th>PDF Constitucion Compañia </th>
-          <th>PDF Nombramiento Representante </th>
-          <th>PDF Poder Acpetamiento Nombramiento </th>
 
 
-          <th>Acciones</th>
+          <th>Accion</th>
         </tr>
       </thead>
       <tbody>
@@ -77,138 +89,82 @@ const FirmaLegalList = ({ supabase }) => {
         <tr key={record.idlegal}>
           <td>{record.cedula_legal}</td>
           <td>{record.ruc_legal}</td>
-          <td>{record.codigodactilar_legal}</td>
+
           <td>{record.nombres_legal}</td>
           <td>{record.apellidopaterno_legal}</td>
-          <td>{record.apellidomaterno_legal}</td>
-          <td>{record.fechanacimiento_legal}</td>
-          <td>{record.genero_legal}</td>
-          <td>{record.correopersonal_legal}</td>
-          <td>{record.celular_legal}</td>
-          <td>{record.rucempresa_legal}</td>
-          <td>{record.razonsocial_legal}</td>
-          <td>{record.cargorepresentante_legal}</td>
-          <td>{record.provincia_legal}</td>
-          <td>{record.ciudad_legal}</td>
-          <td>{record.direccion_legal}</td>
-          <td>{record.tiempovigencia_legal}</td>
-          <td><img 
-                src={`../imagenes/${record.fotocedulafrontal_legal}`} 
-                alt="Foto Cédula Frontal Legal" 
-                className="img-fluid" 
-                style={{ width: '75mm', height: '50mm' }}
-              /></td>
-          <td><img 
-                src={`../imagenes/${record.fotocedulaposterior_legal}`} 
-                alt="Foto Cédula Posterior Legal" 
-                className="img-fluid" 
-                style={{ width: '75mm', height: '50mm' }}
-              /></td>
-              <td><img 
-                src={`../imagenes/${record.fotoselfie_legal}`} 
-                alt="Foto Selfie Legal" 
-                className="img-fluid" 
-                style={{ width: '45mm', height: '50mm' }}
-              />  </td>
-              <td><img 
-                src={`../imagenes/${record.fototransferencia_legal}`} 
-                alt="Foto Transferencia Legal" 
-                className="img-fluid" 
-                style={{ width: '45mm', height: '50mm' }}
-              /></td>
-              <td><a href={`../pdfs/${record.pdf_legal}`} target="_blank" rel="noreferrer">Ver PDF</a></td>
-              <td><a href={`../pdfs/${record.pdfconstitucioncompania_legal}`} target="_blank" rel="noreferrer">Ver PDF</a></td>
-              <td><a href={`../pdfs/${record.pdfnombramientorepresentante_legal}`} target="_blank" rel="noreferrer">Ver PDF</a></td>
-              <td><a href={`../pdfs/${record.pdfaceptamientonombramiento_legal}`} target="_blank" rel="noreferrer">Ver PDF</a></td>
 
-              <br />
-              Código Dactilar Legal: {record.codigodactilar_legal}
-              <br />
-              Nombres Legal: {record.nombres_legal} 
-              <br />
-              Apellido Paterno Legal: {record.apellidopaterno_legal} 
-              <br />
-              Apellido Materno Legal: {record.apellidomaterno_legal} 
-              <br />
-              Fecha de Nacimiento Legal: {record.fechanacimiento_legal} 
-              <br />
-              Género Legal: {record.genero_legal}
-              <br />
-              Correo Personal Legal: {record.correopersonal_legal} 
-              <br />
-              Celular Legal: {record.celular_legal} 
-              <br />
-              Ruc Empresa: {record.rucempresa_legal}
-              <br />
-              Razon Social: {record.razonsocial_legal}
-              <br />
-              Cargo Legal: {record.cargorepresentante_legal}
-              <br />
-              Provincia Legal: {record.provincia_legal}
-              <br />
-              Ciudad Legal: {record.ciudad_legal} 
-              <br />
-              Dirección Legal: {record.direccion_legal} 
-              <br />
-              Tiempo Vigencia Legal: {record.tiempovigencia_legal} 
-              <br />
-              Foto Cédula Frontal Legal: 
-              <br />
-              <img 
-                src={`../imagenes/${record.fotocedulafrontal_legal}`} 
-                alt="Foto Cédula Frontal Legal" 
-                className="img-fluid" 
-                style={{ width: '75mm', height: '50mm' }}
-              />
-              <br />
-              Foto Cédula Posterior Legal: 
-              <br />
-              <img 
-                src={`../imagenes/${record.fotocedulaposterior_legal}`} 
-                alt="Foto Cédula Posterior Legal" 
-                className="img-fluid" 
-                style={{ width: '75mm', height: '50mm' }}
-              />
-              <br />
-              Foto Selfie Legal: 
-              <br />
-              <img 
-                src={`../imagenes/${record.fotoselfie_legal}`} 
-                alt="Foto Selfie Legal" 
-                className="img-fluid" 
-                style={{ width: '45mm', height: '50mm' }}
-              />
-              <br />
-              Foto Transferencia Legal: 
-              <br />
-              <img 
-                src={`../imagenes/${record.fototransferencia_legal}`} 
-                alt="Foto Transferencia Legal" 
-                className="img-fluid" 
-                style={{ width: '45mm', height: '50mm' }}
-              />
-              <br />
-              PDF Legal: 
-              <a href={`../pdfs/${record.pdf_legal}`} target="_blank" rel="noreferrer">Ver PDF</a>
-              <br />
-              Pdf Constitucion Compañia:
-              <a href={`../pdfs/${record.pdfconstitucioncompania_legal}`} target="_blank" rel="noreferrer">Ver PDF</a>
-              <br />  
-              Pdf Nombramiento Representante Legal:
-              <a href={`../pdfs/${record.pdfnombramientorepresentante_legal}`} target="_blank" rel="noreferrer">Ver PDF</a>
-              <br />
-              Pdf Poder Acpetamiento Nombramiento:
-              <a href={`../pdfs/${record.pdfaceptamientonombramiento_legal}`} target="_blank" rel="noreferrer">Ver PDF</a>
-              <br /><br />
+          <td>{record.tiempovigencia_legal}</td>
               <td>
-            <button onClick={() => deleteLegalRecord(record.idlegal)} class="btn btn-danger">Delete</button>
-            <button onClick={() => updateLegalRecord(record.idlegal)} class="btn btn-primary">Update</button>
+            <button className="btn btn-info" onClick={() => handleDetailsClick(record)}>
+      Detalles
+    </button>
           </td>
         </tr>
       ))}
     </tbody>
   </table>
+  <Modal show={showModal} onHide={() => setShowModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Detalles Firma electronica Legal</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    
+    <p>Cédula: {selectedLegal?.cedula_legal}</p>
+    <p>Nombres: {selectedLegal?.nombres_legal}</p>
+    <p>Apellido Paterno: {selectedLegal?.apellidopaterno_legal}</p>
+    <p>Apellido Materno: {selectedLegal?.apellidomaterno_legal}</p>
+    <p>RUC: {selectedLegal?.ruc_legal}</p>
+    <p>Codigo Dactilar: {selectedLegal?.codigodactilar_legal}</p>
+    <p>Fecha de Nacimiento: {selectedLegal?.fechanacimiento_legal}</p>
+    <p>Genero: {selectedLegal?.genero_legal}</p>
+    <p>Correo Personal: {selectedLegal?.correopersonal_legal}</p>
+    <p>Celular: {selectedLegal?.celular_legal}</p>
+    <p>Provincia: {selectedLegal?.provincia_legal}</p>
+    <p>Ciudad: {selectedLegal?.ciudad_legal}</p>
+    <p>Direccion: {selectedLegal?.direccion_legal}</p>
+    <p>Tiempo Vigencia: {selectedLegal?.tiempovigencia_legal}</p>
+    <p>Foto Cédula Frontal: </p>
+    <img
+      src={`../imagenes/${selectedLegal?.fotocedulafrontal_legal}`}
+      alt="Foto Cédula Frontal"
+      className="img-fluid"
+      style={{ width: '75mm', height: '50mm' }}
+    />
+    <p>Foto Cédula Posterior: </p>
+    <img
+      src={`../imagenes/${selectedLegal?.fotocedulaposterior_legal}`}
+      alt="Foto Cédula Posterior"
+      className="img-fluid"
+      style={{ width: '75mm', height: '50mm' }}
+    />
+    <p>Foto Selfie: </p>
+    <img
+      src={`../imagenes/${selectedLegal?.fotoselfie_legal}`}
+      alt="Foto Selfie"
+      className="img-fluid"
+      style={{ width: '45mm', height: '50mm' }}
+    />
+    <p>Foto Transferencia: </p>
+    <img
+      src={`../imagenes/${selectedLegal?.fototransferencia_legal}`}
+      alt="Foto Transferencia"
+      className="img-fluid"
+      style={{ width: '75mm', height: '50mm' }}
+    />
+
+    
+  </Modal.Body>
+  <Modal.Footer>
+  <button type="button" className="btn btn-primary" onClick={generatePDF}>Generar PDF</button>
+
+    <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cerrar</button>
+  </Modal.Footer>
+</Modal>
+
+
+  
 </div>
+
   );
 };
 

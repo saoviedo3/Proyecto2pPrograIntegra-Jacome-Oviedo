@@ -1,9 +1,12 @@
-// FirmadocumentalList.jsx
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal } from 'bootstrap';
+import { jsPDF } from "jspdf";
 
 const FirmadocumentalList = ({ supabase }) => {
   const [documentales, setDocumentales] = useState([]);
+  const [selectedDocumental, setSelectedDocumental] = useState(null);
 
   useEffect(() => {
     async function fetchDocumentales() {
@@ -26,83 +29,122 @@ const FirmadocumentalList = ({ supabase }) => {
     fetchDocumentales();
   }, [supabase]);
 
-  async function deleteDocumental(iddocumental) {
-    try {
-      await supabase.from('firmadocumental').delete().eq('iddocumental', iddocumental);
-      setDocumentales(documentales.filter((documental) => documental.iddocumental !== iddocumental));
-    } catch (error) {
-      console.error('Error deleting documental:', error.message);
-    }
-  }
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text(`Nombre: ${selectedDocumental.nombres_documental}`, 10, 10);
+    doc.text(`Apellido: ${selectedDocumental.apellidopaterno_documental} ${selectedDocumental.apellidomaterno_documental}`, 10, 20);
+    doc.text(`Cédula: ${selectedDocumental.cedula_documental}`, 10, 30);
+    doc.text(`Tiempo Vigencia: ${selectedDocumental.tiempovigencia_documental}`, 10, 40);
+    doc.text(`Fecha Nacimiento: ${selectedDocumental.fechanacimiento_documental}`, 10, 50);
+    doc.text(`Genero: ${selectedDocumental.genero_documental}`, 10, 60);
+    doc.text(`Correo: ${selectedDocumental.correopersonal_documental}`, 10, 70);
+    doc.text(`Celular: ${selectedDocumental.celular_documental}`, 10, 80);
+    doc.text(`Provincia: ${selectedDocumental.provincia_documental}`, 10, 90);
+    doc.text(`Ciudad: ${selectedDocumental.ciudad_documental}`, 10, 100);
+    doc.text(`Direccion: ${selectedDocumental.direccion_documental}`, 10, 110);
+
+    // Aquí puedes agregar más campos según sea necesario
+    doc.save("documental.pdf");
+  };
+  
+
+  const handleDetailsClick = (documental) => {
+    setSelectedDocumental(documental);
+    var myModalEl = document.getElementById('myModal');
+    var myModal = new Modal(myModalEl);
+    myModal.show();
+  };
 
   return (
-    <div>
-      <h2>Firmadocumental List</h2>
-      <ul>
-        {documentales.map((documental) => (
-          <li key={documental.iddocumental}>
-            Nombre: {documental.nombres_documental} 
-            <br />
-            Apelldios: {documental.apellidopaterno_documental} {documental.apellidomaterno_documental} 
-            <br />
-            Fecha Nacimiento: {documental.fechanacimiento_documental} 
-            <br />
-            Genero: {documental.genero_documental}
-            <br />
-            Correo: {documental.correopersonal_documental} 
-            <br />
-            Celular: {documental.celular_documental} 
-            <br />
-            Provincia: {documental.provincia_documental}
-            <br />
-            Ciudad: {documental.ciudad_documental} 
-            <br />
-            Direccion: {documental.direccion_documental} 
-            <br />
-            Tiempo Vigencia: {documental.tiempovigencia_documental} 
-            <br />
-            Foto Cedula Frontal: 
-            <br />
-            <img 
-              src={`../imagenes/${documental.fotocedulafrontal_documental}`} 
+    
+    <div className="container mt-5">
+      <h2 className="mb-4">Firmas Documentales </h2>
+      <table className="table table-hover table-bordered">
+        <thead className="thead-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cédula</th>
+            <th>Tiempo Vigencia</th>
+            <th>Detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          {documentales.map((documental) => (
+            <tr key={documental.iddocumental}>
+              <td>{documental.nombres_documental}</td>
+              <td>{documental.apellidopaterno_documental} {documental.apellidomaterno_documental}</td>
+              <td>{documental.cedula_documental}</td>
+              <td>{documental.tiempovigencia_documental}</td>
+              <td>
+                <button className="btn btn-info" onClick={() => handleDetailsClick(documental)}>
+                  Detalles
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+        {selectedDocumental && (
+        <div className="modal fade" id="myModal" tabIndex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+                <h5 className="modal-title">Detalles de la Firma Documental</h5>
+                </div>
+                <div className="modal-body d-flex flex-column align-items-center justify-content-center">
+                <p>Nombre: {selectedDocumental.nombres_documental}</p>
+                <p>Apellido: {selectedDocumental.apellidopaterno_documental} {selectedDocumental.apellidomaterno_documental}</p>
+                <p>Cédula: {selectedDocumental.cedula_documental}</p>
+                <p>Tiempo Vigencia: {selectedDocumental.tiempovigencia_documental}</p>
+                <p>Fecha Nacimiento: {selectedDocumental.fechanacimiento_documental} </p>
+                <p>Genero: {selectedDocumental.genero_documental}</p>
+                <p>Correo: {selectedDocumental.correopersonal_documental} </p>
+                <p>Celular: {selectedDocumental.celular_documental} </p>
+                <p>Provincia: {selectedDocumental.provincia_documental}</p>
+                <p>Ciudad: {selectedDocumental.ciudad_documental} </p>
+                <p>Direccion: {selectedDocumental.direccion_documental} </p>
+                <p> Foto Cedula Frontal: </p>
+                <p><img 
+              src={`../imagenes/${selectedDocumental.fotocedulafrontal_documental}`} 
               alt="Foto Cedula Frontal" 
               className="img-fluid" 
               style={{ width: '75mm', height: '50mm' }}
-            />
-            <br />
-            Foto Cedula Posterior: 
-            <br />
-            <img 
-              src={`../imagenes/${documental.fotocedulaposterior_documental}`} 
+            /></p>
+                <p>
+                <p>Foto Cedula Posterior: </p>
+                <img 
+              src={`../imagenes/${selectedDocumental.fotocedulaposterior_documental}`} 
               alt="Foto Cedula Posterior" 
               className="img-fluid" 
-              style={{ width: '75mm', height: '50mm' }}
-            />
-            <br />
-            Foto Selfie: 
-            <br />
-            <img 
-              src={`../imagenes/${documental.fotoselfie_documental}`} 
+              style={{ width: '75mm', height: '50mm' }}/>
+                </p>
+                <p>Foto Selfie: </p>
+                <p> <img 
+              src={`../imagenes/${selectedDocumental.fotoselfie_documental}`} 
               alt="Foto Selfie" 
               className="img-fluid" 
               style={{ width: '45mm', height: '50mm' }}
-            />
-            <br />
-            Foto Transferencia: 
-            <br />
-            <img 
-              src={`../imagenes/${documental.fototransferencia_documental}`} 
+            /></p>
+                <p>Foto Transferencia: </p>
+                <p> <img 
+              src={`../imagenes/${selectedDocumental.fototransferencia_documental}`} 
               alt="Foto Transferencia" 
               className="img-fluid" 
               style={{ width: '45mm', height: '50mm' }}
-            />
+            /></p>
+                
 
-            <br /><br />
-            <button onClick={() => deleteDocumental(documental.iddocumental)}>Delete</button>
-            <button onClick={() => updateDocumental(record.idlegal)}>Update</button>
-          </li>
-        ))}
-      </ul>
+              </div>
+              <div className="modal-footer">
+              <button type="button" className="btn btn-primary" onClick={generatePDF}>Generar PDF</button>
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -72,159 +72,147 @@ const FirmadocumentalForm = ({ supabase }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Agregar Firma Documental</h2>
+    <form onSubmit={handleSubmit} className="container mt-5">
+      <h1>Agregar Firma Documental</h1>
       <h3>Ingrese los datos del cliente</h3>
-      Cedula:
       <br />
+      <div className="form-group">
+      <label htmlFor="cedula">Cédula:</label>
       <input
         type="number"
+        className="form-control"
         placeholder="Enter Cedula"
         value={cedula_documental}
         onChange={(e) => setCedula_Documental(e.target.value)}
       />
-      <br />
+
       Codigo Dactilar:
-      <br />
+
       <input
         type="text"
+        className="form-control"
         placeholder="Enter codigodactilar_documental"
         value={codigodactilar_documental}
         onChange={(e) => setCodigoDactilar_Documental(e.target.value)}
       />
-      <br />
       Nombres:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter nombres_documental"
         value={nombres_documental}
         onChange={(e) => setNombres_Documental(e.target.value)}
       />
-      <br />
       Apellido Paterno:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter apellidopaterno_documental"
         value={apellidopaterno_documental}
         onChange={(e) => setApellidoPaterno_Documental(e.target.value)}
       />
-      <br />
       Apellido Materno:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter apellidomaterno_documental"
         value={apellidomaterno_documental}
         onChange={(e) => setApellidoMaterno_Documental(e.target.value)}
       />
-      <br />
       Fecha de Nacimiento:
-      <br />
       <input
         type="date"
+        className="form-control"
         placeholder="Enter fechanacimiento_documental"
         value={fechanacimiento_documental}
         onChange={(e) => setFechaNacimiento_Documental(e.target.value)}
       />
-      <br />
       Genero:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter genero_documental"
         value={genero_documental}
         onChange={(e) => setGenero_Documental(e.target.value)}
       />
-      <br />
       Correo Personal:
-      <br />
       <input
         type="email"
+        className="form-control"
         placeholder="Enter correopersonal_documental"
         value={correopersonal_documental}
         onChange={(e) => setCorreoPersonal_Documental(e.target.value)}
       />
-      <br />
       Celular:
-      <br />
       <input
         type="number"
+        className="form-control"
         placeholder="Enter celular_documental"
         value={celular_documental}
         onChange={(e) => setCelular_Documental(e.target.value)}
       />
-      <br />
       Provincia:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter provincia_documental"
         value={provincia_documental}
         onChange={(e) => setProvincia_Documental(e.target.value)}
       />
-      <br />
       Ciudad:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter ciudad_documental"
         value={ciudad_documental}
         onChange={(e) => setCiudad_Documental(e.target.value)}
       />
-      <br />
       Direccion:
-      <br />
       <input
         type="text"
+        className="form-control"
         placeholder="Enter direccion_documental"
         value={direccion_documental}
         onChange={(e) => setDireccion_Documental(e.target.value)}
       />
-      <br />
       Tiempo Vigencia:
-      <br />
       <input
         type="number"
+        className="form-control"
         placeholder="Enter tiempovigencia_documental"
         value={tiempovigencia_documental}
         onChange={(e) => setTiempoVigencia_Documental(e.target.value)}
       /> 
-      <br />
       Foto Cedula Frontal:
-      <br />
       <input
         type="file"
+        className="form-control"
         placeholder="Enter fotocedulafrontal_documental"
         onChange={(e) => setFotoCedulaFrontal_Documental(e.target.files[0].name)}
       />
-      <br />
       Foto Cedula Posterior:
-      <br />
       <input
         type="file"
+        className="form-control"
         placeholder="Enter fotocedulaposterior_documental"
         onChange={(e) => setFotoCedulaPosterior_Documental(e.target.files[0].name)}
       />
-      <br />
       Foto Selfie:
-      <br />
       <input
         type="file"
+        className="form-control"
         placeholder="Enter fotoselfie_documental"
         onChange={(e) => setFotoSelfie_Documental(e.target.files[0].name)}
       />
-      <br />
       Foto Transferencia:
-      <br />
       <input
         type="file"
+        className="form-control"
         placeholder="Enter fototransferencia_documental"
         onChange={(e) => setFotoTransferencia_Documental(e.target.files[0].name)}
       />
-      <br />
-      <button type="submit">Agregar Firma</button>
+      </div>
+      <button type="submit" className="btn btn-primary mt-3">Agregar Firma</button>
     </form>
   );
 };
